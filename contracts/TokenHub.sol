@@ -534,11 +534,11 @@ contract TokenHub is ITokenHub, System, IParamSubscriber, IApplication, ISystemR
     if (contractAddr != address(0x00)) {
       require(contractAddrToBEP2Symbol[contractAddr] != bytes32(0x00), "not bound");
       uint256 bep20TokenDecimals=bep20ContractDecimals[contractAddr];
-      convertedAmount = convertToBep2Amount(amount, bep20TokenDecimals);// convert to bep2 amount
+      convertedAmount = convertFromBep2Amount(amount, bep20TokenDecimals);// convert to bep2 amount
       require(bep20TokenDecimals>=BEP2_TOKEN_DECIMALS || (bep20TokenDecimals<BEP2_TOKEN_DECIMALS && convertedAmount>amount), "amount is too large, uint256 overflow");
       require(convertedAmount<=MAX_BEP2_TOTAL_SUPPLY, "amount is too large, exceed maximum bep2 token amount");
       require(IBEP20(contractAddr).balanceOf(address(this)) >= convertedAmount, "insufficient balance");
-      IBEP20(contractAddr).transfer(recipient, amount);
+      IBEP20(contractAddr).transfer(recipient, convertedAmount);
     }else{
       convertedAmount = amount.div(TEN_DECIMALS); // native bnb decimals is 8 on BC, while the native bnb decimals on BSC is 18
       require(address(this).balance >= convertedAmount, "insufficient balance");
