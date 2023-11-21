@@ -17,7 +17,7 @@ contract AirDrop is IAirDrop, IParamSubscriber, System {
     bytes32 public override merkleRoot = 0x0000000000000000000000000000000000000000000000000000000000000000;
     bool public merkleRootAlreadyInit = false;
 
-    // This is a packed array of booleans.
+    // claimedMap is used to record the claimed token.
     mapping(bytes32 => bool) private claimedMap;
 
     function isClaimed(bytes32 node) public view override returns (bool) {
@@ -29,7 +29,7 @@ contract AirDrop is IAirDrop, IParamSubscriber, System {
         bytes calldata ownerPubKey, bytes calldata ownerSignature, bytes calldata approvalSignature,
         bytes32[] calldata merkleProof) external override {
         // Recover the owner address and check signature.
-        bytes memory ownerAddr = _verifyTMSignature(ownerPubKey, ownerSignature, _tmSignarueHash(tokenSymbol, amount, msg.sender));
+        bytes memory ownerAddr = _verifyTMSignature(ownerPubKey, ownerSignature, _tmSignatureHash(tokenSymbol, amount, msg.sender));
         // Generate the leaf node of merkle tree.
         bytes32 node = keccak256(abi.encodePacked(ownerAddr, tokenSymbol, amount));
     
@@ -128,7 +128,7 @@ contract AirDrop is IAirDrop, IParamSubscriber, System {
         return abi.encodePacked(_data);
     }
 
-    function _tmSignarueHash(
+    function _tmSignatureHash(
         bytes32 tokenSymbol,
         uint256 amount,
         address recipient
@@ -147,7 +147,7 @@ contract AirDrop is IAirDrop, IParamSubscriber, System {
     }
 
     function _bytesToHex(bytes memory buffer, bool prefix) public pure returns (string memory) {
-        // Fixed buffer size for hexadecimal convertion
+        // Fixed buffer size for hexadecimal conversion
         bytes memory converted = new bytes(buffer.length * 2);
 
         bytes memory _base = "0123456789abcdef";
