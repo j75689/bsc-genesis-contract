@@ -38,7 +38,7 @@ contract AirDrop is IAirDrop, IParamSubscriber, System {
 
         address contractAddr = address(0x00);
         // Check if the token is exist.
-        if (tokenSymbol != "BNB") {
+        if (tokenSymbol != ITokenHub(TOKEN_HUB_ADDR).BEP2_TOKEN_SYMBOL_FOR_BNB()) {
             contractAddr = _checkTokenContractExist(tokenSymbol);
         }
         
@@ -83,7 +83,7 @@ contract AirDrop is IAirDrop, IParamSubscriber, System {
         require(ecrecover(hash, v, r, s) == approvalAddress, "InvalidSignature");
     }
 
-    function _checkTokenContractExist(bytes32 tokenSymbol) private view returns (address) {
+    function _checkTokenContractExist(bytes32 tokenSymbol) internal view returns (address) {
         address contractAddr = ITokenHub(TOKEN_HUB_ADDR).getContractAddrByBEP2Symbol(tokenSymbol);
         require(contractAddr != address(0x00), "InvalidSymbol");
 
