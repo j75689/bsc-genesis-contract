@@ -48,11 +48,11 @@ contract AirDrop is IAirDrop, IParamSubscriber, System {
         // Verify the merkle proof.
         require(MerkleProof.verify(merkleProof, merkleRoot, node), "InvalidProof");
     
-        // Unlock the token from TokenHub.
-        ITokenHub(TOKEN_HUB_ADDR).unlock(contractAddr, msg.sender, amount);
-
         // Mark it claimed and send the token.
         claimedMap[node] = true;
+        
+        // Unlock the token from TokenHub.
+        ITokenHub(TOKEN_HUB_ADDR).unlock(contractAddr, msg.sender, amount);
 
         emit Claimed(tokenSymbol, msg.sender, amount);
     }
