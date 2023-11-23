@@ -25,4 +25,6 @@ interface ITokenHub {
   function withdrawStakingBNB(uint256 amount) external returns(bool);
 
   function cancelTransferIn(address tokenAddress, address attacker) external;
+
+  function BEP2_TOKEN_SYMBOL_FOR_BNB() external view returns (bytes32);
 }
