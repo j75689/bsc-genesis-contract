@@ -18,6 +18,7 @@ contract System {
     address internal constant GOVERNOR_ADDR = 0x0000000000000000000000000000000000002004;
     address internal constant GOV_TOKEN_ADDR = 0x0000000000000000000000000000000000002005;
     address internal constant TIMELOCK_ADDR = 0x0000000000000000000000000000000000002006;
+    address internal constant AIRDROP_CONTRACT_ADDR = 0x0000000000000000000000000000000000003000;
 
     event ParamChange(string key, bytes value);
 
@@ -53,6 +54,11 @@ contract System {
 
     modifier onlyStakeHub() {
         require(msg.sender == STAKE_HUB_ADDR, "the msg sender must be stakeHub");
+        _;
+    }
+
+    modifier onlyAirDrop() {
+        require(msg.sender == AIRDROP_CONTRACT_ADDR, "the msg sender must be airdrop");
         _;
     }
 }
