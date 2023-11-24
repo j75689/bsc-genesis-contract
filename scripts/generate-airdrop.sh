@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Default values
-OUTPUT="./contracts/AirDrop.sol"
+OUTPUT="./contracts/BC_fusion/AirDrop.sol"
 SOURCE_CHAIN_ID=""
 APPROVAL_ADDRESS="0xaAaAaAaaAaAaAaaAaAAAAAAAAaaaAaAaAaaAaaAa"
 MERKLE_ROOT="0x0000000000000000000000000000000000000000000000000000000000000000"

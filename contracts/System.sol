@@ -106,8 +106,8 @@ contract System {
   }
 
   modifier onlyAirDrop() {
-    require(msg.sender == AIRDROP_CONTRACT_ADDR, "the msg sender must be airdrop");
-    _;
+      require(msg.sender == AIRDROP_CONTRACT_ADDR, "the msg sender must be airdrop");
+      _;
   }
 
   // Not reliable, do not use when need strong verify
