@@ -35,7 +35,7 @@ contract Staking is IStaking, System, IParamSubscriber, IApplication {
   uint32 public constant ERROR_WITHDRAW_BNB = 101;
 
   uint256 public constant TEN_DECIMALS = 1e10;
-  uint256 public constant LOCK_TIME = 8 days; // 8*24*3600 second
+  uint256 public constant LOCK_TIME = 120 seconds; // 8*24*3600 second
 
   uint256 public constant INIT_RELAYER_FEE = 16 * 1e15;
   uint256 public constant INIT_BSC_RELAYER_FEE = 1 * 1e16;
